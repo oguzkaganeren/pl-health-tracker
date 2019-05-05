@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/app_name"/>
+    <item
+        android:id="@+id/navigation_bmi"
+        android:icon="@drawable/ic_insert_chart_green_24dp"
+        android:title="@string/title_bmi"/>
+
+    <item
+        android:id="@+id/navigation_eer"
+        android:icon="@drawable/ic_rowing_green_24dp"
+        android:title="@string/title_eer"/>
+
+    <item
+        android:id="@+id/navigation_pht"
+        android:icon="@drawable/ic_health_green_24dp"
+        android:title="@string/title_pht"/>
+
+</menu>
