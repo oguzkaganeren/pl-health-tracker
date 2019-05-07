@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "534515845978-8robmn6c3dlniabbe83sasre1mhi290f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.healthtracker",
+            "certificate_hash": "f6bc310174b07e3d0ec4da50da380540b0ed1f31"
+          }
+        },
+        {
           "client_id": "534515845978-8n9m1aitla53222vrnrhgclt4mk3c98k.apps.googleusercontent.com",
           "client_type": 3
         }
