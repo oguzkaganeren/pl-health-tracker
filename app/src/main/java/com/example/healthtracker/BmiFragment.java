@@ -7,15 +7,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import com.example.healthtracker.core.People;
 
 
 public class BmiFragment extends Fragment {
 
-
-
+    private People newPeople;
 
     public BmiFragment() {
         // Required empty public constructor
+
+         newPeople = new People(95, 1.67);
     }
 
     // TODO: Rename and change types and number of parameters
@@ -33,6 +36,7 @@ public class BmiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        
         return inflater.inflate(R.layout.fragment_bmi, container, false);
     }
 
