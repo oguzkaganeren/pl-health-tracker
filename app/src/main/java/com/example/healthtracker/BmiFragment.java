@@ -1,24 +1,22 @@
 package com.example.healthtracker;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import com.example.healthtracker.core.People;
+
+import com.example.healthtracker.core.Person;
 
 
 public class BmiFragment extends Fragment {
 
-    private People newPeople;
+    private Person newPerson;
 
     public BmiFragment() {
         // Required empty public constructor
 
-         newPeople = new People(95, 1.67);
+         newPerson = new Person(95, 1.67);
     }
 
     // TODO: Rename and change types and number of parameters
