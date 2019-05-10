@@ -3,9 +3,11 @@ package com.example.healthtracker.core;
 public class Person {
     private double weight;
     private double height;
-    private double tension;
-    private double bloodSugar;
-    private double heartRate;
+    private int age;
+    private boolean gender;
+    private int tension;//max 200 min 40
+    private double bloodSugar;//max 25 min 0
+    private int heartRate;//min 50 max 200
     private BMI bmi;
 
 
@@ -35,11 +37,11 @@ public class Person {
         this.height = height;
     }
 
-    public double getTension() {
+    public int getTension() {
         return tension;
     }
 
-    public void setTension(double tension) {
+    public void setTension(int tension) {
         this.tension = tension;
     }
 
@@ -51,11 +53,27 @@ public class Person {
         this.bloodSugar = bloodSugar;
     }
 
-    public double getHeartRate() {
+    public int getHeartRate() {
         return heartRate;
     }
 
-    public void setHeartRate(double heartRate) {
+    public void setHeartRate(int heartRate) {
         this.heartRate = heartRate;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public boolean isGender() {
+        return gender;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
     }
 }

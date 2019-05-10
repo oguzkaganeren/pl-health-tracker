@@ -6,4 +6,8 @@
     <string name="title_home">Welcome</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tension">Your tension</string>
+    <string name="blood_sugar">Your blood sugar</string>
+    <string name="heart_rate">Your heart rate</string>
+    <string name="weight">Your weight</string>
 </resources>
