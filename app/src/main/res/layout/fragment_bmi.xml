@@ -56,7 +56,7 @@
                 android:clickable="false"
                 android:max="50"
                 android:progress="5"
-                android:progressDrawable="@drawable/ic_health_green_24dp"
+                android:progressDrawable="@drawable/ic_health_red_24dp"
                 android:progressTint="#8BC34A" />
         </LinearLayout>
     </LinearLayout>

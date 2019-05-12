@@ -1,9 +1,9 @@
 package com.example.healthtracker;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +13,12 @@ import android.widget.ProgressBar;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.healthtracker.core.People;
+import com.example.healthtracker.core.Person;
 import java.lang.String;
 
 public class BmiFragment extends Fragment {
 
-    private People newPeople;
+    private Person newPeople;
     private TextView result;
     private ProgressBar bmiBar;
     private EditText weight;
@@ -26,7 +26,7 @@ public class BmiFragment extends Fragment {
     private Button calculate;
     public BmiFragment() {
         // Required empty public constructor
-         newPeople = new People(45, 1.59);
+         newPeople = new Person(45, 1.59);
     }
 
     // TODO: Rename and change types and number of parameters
@@ -64,7 +64,7 @@ public class BmiFragment extends Fragment {
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                People deneme = new People(Integer.parseInt(weight.getText().toString()), Double.parseDouble(height.getText().toString()));
+                Person deneme = new Person(Integer.parseInt(weight.getText().toString()), Double.parseDouble(height.getText().toString()));
                 //int tempResult = (int)Math.round(newPeople.getBMI());
                 //result.setText(Integer.toString(tempResult));
                 //bmiBar.setProgress(tempResult);
