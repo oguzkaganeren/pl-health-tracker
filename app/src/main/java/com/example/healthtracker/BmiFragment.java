@@ -4,77 +4,113 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import android.text.Editable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.alespero.expandablecardview.ExpandableCardView;
 import com.example.healthtracker.core.Person;
+
 import java.lang.String;
 
 public class BmiFragment extends Fragment {
 
     private Person newPeople;
-    private TextView result;
-    private ProgressBar bmiBar;
-    private EditText weight;
-    private EditText height;
-    private Button calculate;
+    //private ProgressBar bmiBar;
+
     public BmiFragment() {
         // Required empty public constructor
-         newPeople = new Person(45, 1.59);
+        newPeople = new Person(45.1, 159);
     }
+    int full = 0, half = 0; double currentWeight = 0.0;
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        final NumberPicker weightFull = view.findViewById(R.id.weightFull);
+        final NumberPicker weightDecimal = view.findViewById(R.id.weightDecimal);
+        final ExpandableCardView tension_card = view.findViewById(R.id.tension_card);
+        final TextView tx = view.findViewById(R.id.currentHeight);
+        tension_card.setTitle("Current Weight : " +newPeople.getWeight());
+        weightFull.setValue((int)newPeople.getWeight());
+        weightDecimal.setValue((int)((int)newPeople.getWeight() - newPeople.getWeight()));
+        weightFull.setMinValue(30);
+        weightFull.setMaxValue(200);
+        weightFull.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int value) {
+                return String.format("%02d",value);
+            }
+        });
+        weightFull.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                full = newVal;
+                currentWeight = Double.parseDouble(full + "." + half);
+                tension_card.setTitle("Current Weight => " + currentWeight);
+            }
+        });
+
+        weightDecimal.setMinValue(0);
+        weightDecimal.setMaxValue(9);
+
+        weightDecimal.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int value) {
+                return String.format("%02d",value);
+            }
+        });
+        weightDecimal.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                half = newVal;
+                currentWeight = Double.parseDouble(full + "." + half);
+                tension_card.setTitle("Current Weight : " + currentWeight);
+            }
+        });
+
+        /*
+        final TextView height = view.findViewById(R.id.currentHeight);
+        final TextView weight = view.findViewById(R.id.currentWeight);
+        final SeekBar setWeight = view.findViewById(R.id.setWeight);
+        final SeekBar setHeight = view.findViewById(R.id.setWeight);
+        final TextView result = view.findViewById(R.id.result);
+
+        newPeople = new Person();
+
+        newPeople.setHeight(Double.parseDouble(setHeight.getProgress()));
+        */
+        //bmiBar = view.findViewById(R.id.bmiBar);
+
+        //int tempResult = (int)Math.round(newPeople.getBMI());
+        //result.setText("calculated : " + tempResult);
+        //bmiBar.setProgress(Math.round(tempResult));
+
+        //Person deneme = new Person(Integer.parseInt(weight.getText().toString()), Double.parseDouble(height.getText().toString()));
+        //int tempResult = (int)Math.round(newPeople.getBMI());
+        //result.setText(Integer.toString(tempResult));
+        //bmiBar.setProgress(tempResult);
+
+
+    }
     // TODO: Rename and change types and number of parameters
     public static BmiFragment newInstance(String param1, String param2) {
         BmiFragment fragment = new BmiFragment();
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_bmi, container, false);
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        result = view.findViewById(R.id.result);
-        bmiBar = view.findViewById(R.id.bmiBar);
-        int tempResult = (int)Math.round(newPeople.getBMI());
-        result.setText("calculated : " + tempResult);
-        bmiBar.setProgress((int)Math.round(tempResult));
-
-        height = view.findViewById(R.id.height);
-        weight = view.findViewById(R.id.weight);
-        calculate = view.findViewById(R.id.calculate);
-
-        calculate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Person deneme = new Person(Integer.parseInt(weight.getText().toString()), Double.parseDouble(height.getText().toString()));
-                //int tempResult = (int)Math.round(newPeople.getBMI());
-                //result.setText(Integer.toString(tempResult));
-                //bmiBar.setProgress(tempResult);
-            }
-        });
-
-
-
-    }
-
     @Override
     public void onDetach() {
         super.onDetach();

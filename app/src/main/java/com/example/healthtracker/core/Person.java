@@ -10,6 +10,9 @@ public class Person {
     private int heartRate;//min 50 max 200
     private BMI bmi;
 
+    public Person(){
+        bmi = new BMI(0,0);
+    }
 
     public Person(double weight, double height) {
         this.setWeight(weight);

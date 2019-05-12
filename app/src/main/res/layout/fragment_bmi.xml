@@ -1,63 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/deneme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BmiFragment">
+    android:orientation="vertical"
+    android:textAlignment="center">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/currentHeight"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/result"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_weight="1"
-                android:text="TextView" />
-
-            <EditText
-                android:id="@+id/weight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="number"
-                android:text="1.59" />
-
-            <EditText
-                android:id="@+id/height"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                android:text="50" />
-
-            <Button
-                android:id="@+id/calculate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Button" />
-
-            <ProgressBar
-                android:id="@+id/bmiBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="false"
-                android:max="50"
-                android:progress="5"
-                android:progressDrawable="@drawable/ic_health_red_24dp"
-                android:progressTint="#8BC34A" />
-        </LinearLayout>
-    </LinearLayout>
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+    <com.alespero.expandablecardview.ExpandableCardView
+        android:id="@+id/tension_card"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:title="Current Weight"
+        app:icon="@drawable/ic_tension_green_24dp"
+        app:inner_view="@layout/setweight"
+        app:expandOnClick="true" />
+</LinearLayout>
