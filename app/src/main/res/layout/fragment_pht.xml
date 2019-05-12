@@ -34,4 +34,12 @@
         app:icon="@drawable/ic_health_red_24dp"
         app:inner_view="@layout/heart_rate"
         app:expandOnClick="true" />
+
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart1"
+            android:layout_width="250dp"
+            android:layout_height="150dp" />
+
+
     </LinearLayout>

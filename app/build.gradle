@@ -19,6 +19,7 @@ android {
 }
 repositories {
     jcenter()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -34,7 +35,7 @@ dependencies {
     implementation 'com.redmadrobot:inputmask:4.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.alespero:expandable-cardview:0.8'
-
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 }
 
