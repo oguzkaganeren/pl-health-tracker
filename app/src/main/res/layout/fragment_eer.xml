@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".EerFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/textEer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="From EER" />
+        android:layout_height="wrap_content"
+        android:text="Physical Activity Coefficients"
+        android:layout_centerInParent="true"
+        android:textStyle="bold"/>
 
-</FrameLayout>
+    <com.alespero.expandablecardview.ExpandableCardView
+        android:id="@+id/seteer"
+        android:expandOnClick="true"
+        android:icon="@drawable/ic_format_line_spacing_black_24dp"
+        android:inner_view="@layout/seteer"
+        android:title="Physical Activity Coefficients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+</LinearLayout>
