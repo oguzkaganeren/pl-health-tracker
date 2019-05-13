@@ -9,7 +9,7 @@ public class Person {
     private double bloodSugar;//max 25 min 0
     private int heartRate;//min 50 max 200
     private BMI bmi;
-    private String eer;
+    private int eer;
 
     public Person(){
         bmi = new BMI(0,0);
@@ -21,12 +21,31 @@ public class Person {
         bmi = new BMI(weight,height);
         this.setEer(" ");
     }
-    public String getEer(){
+    public int getEer(){
         return eer;
     }
 
     public void setEer(String eer) {
-        this.eer = eer;
+        switch (eer)
+        {
+            case "Sedentary":
+            {
+                
+                this.eer = 1;
+            }break;
+            case "Low Active":
+            {
+
+            }break;
+            case "Active":
+            {
+
+            }break;
+            case "Very Active":
+            {
+
+            }break;
+        }
     }
 
     public double getBMI(){
