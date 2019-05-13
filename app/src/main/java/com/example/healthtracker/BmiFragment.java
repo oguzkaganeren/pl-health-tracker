@@ -32,13 +32,14 @@ public class BmiFragment extends Fragment {
 
         final NumberPicker weightFull = view.findViewById(R.id.weightFull);
         final NumberPicker weightDecimal = view.findViewById(R.id.weightDecimal);
-        final ExpandableCardView tension_card = view.findViewById(R.id.tension_card);
+        final ExpandableCardView setWeight = view.findViewById(R.id.setWeight);
         final TextView tx = view.findViewById(R.id.currentHeight);
-        tension_card.setTitle("Current Weight : " +newPeople.getWeight());
-        weightFull.setValue((int)newPeople.getWeight());
+        setWeight.setTitle("Current Weight : " +newPeople.getWeight());
+
         weightDecimal.setValue((int)((int)newPeople.getWeight() - newPeople.getWeight()));
         weightFull.setMinValue(30);
         weightFull.setMaxValue(200);
+        weightFull.setValue((int)newPeople.getWeight());
         weightFull.setFormatter(new NumberPicker.Formatter() {
             @Override
             public String format(int value) {
@@ -50,7 +51,7 @@ public class BmiFragment extends Fragment {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 full = newVal;
                 currentWeight = Double.parseDouble(full + "." + half);
-                tension_card.setTitle("Current Weight => " + currentWeight);
+                setWeight.setTitle("Current Weight : " + currentWeight);
             }
         });
 
@@ -68,33 +69,31 @@ public class BmiFragment extends Fragment {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 half = newVal;
                 currentWeight = Double.parseDouble(full + "." + half);
-                tension_card.setTitle("Current Weight : " + currentWeight);
+                setWeight.setTitle("Current Weight : " + currentWeight);
+                newPeople.setWeight(currentWeight);
             }
         });
 
-        /*
-        final TextView height = view.findViewById(R.id.currentHeight);
-        final TextView weight = view.findViewById(R.id.currentWeight);
-        final SeekBar setWeight = view.findViewById(R.id.setWeight);
-        final SeekBar setHeight = view.findViewById(R.id.setWeight);
-        final TextView result = view.findViewById(R.id.result);
 
-        newPeople = new Person();
-
-        newPeople.setHeight(Double.parseDouble(setHeight.getProgress()));
-        */
-        //bmiBar = view.findViewById(R.id.bmiBar);
-
-        //int tempResult = (int)Math.round(newPeople.getBMI());
-        //result.setText("calculated : " + tempResult);
-        //bmiBar.setProgress(Math.round(tempResult));
-
-        //Person deneme = new Person(Integer.parseInt(weight.getText().toString()), Double.parseDouble(height.getText().toString()));
-        //int tempResult = (int)Math.round(newPeople.getBMI());
-        //result.setText(Integer.toString(tempResult));
-        //bmiBar.setProgress(tempResult);
-
-
+        final NumberPicker heightFull = view.findViewById(R.id.heightFull);
+        final ExpandableCardView setHeight = view.findViewById(R.id.setHeight);
+        heightFull.setMinValue(100);
+        heightFull.setMaxValue(250);
+        heightFull.setValue(newPeople.getHeight());
+        setHeight.setTitle("Current Height : " +newPeople.getHeight());
+        heightFull.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int value) {
+                return String.format("%02d",value);
+            }
+        });
+        heightFull.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                setHeight.setTitle("Current Height : " + newVal);
+                newPeople.setHeight(newVal);
+            }
+        });
     }
     // TODO: Rename and change types and number of parameters
     public static BmiFragment newInstance(String param1, String param2) {
