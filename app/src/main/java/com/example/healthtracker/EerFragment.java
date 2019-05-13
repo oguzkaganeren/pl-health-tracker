@@ -12,6 +12,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.alespero.expandablecardview.ExpandableCardView;
+import com.example.healthtracker.core.EER;
 import com.example.healthtracker.core.Person;
 
 import java.lang.String;
@@ -24,10 +25,11 @@ import java.lang.String;
 public class EerFragment extends Fragment {
 
     private Person newPeople;
-
+    private EER newEER;
     public EerFragment() {
         // Required empty public constructor
         newPeople = new Person(45.1, 159);
+        newEER = new EER(newPeople);
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class EerFragment extends Fragment {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 eerText.setText("Physical Activity Coefficients : " + values[newVal]);
                 newPeople.setEer(values[newVal]);
-                resultText.setText(Double.toString(newPeople.getResult()));
+                resultText.setText("Estimated Energy Requirement(kcal/day) :" + Double.toString(newEER.getResult()));
             }
         });
 
