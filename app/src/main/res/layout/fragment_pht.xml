@@ -34,12 +34,16 @@
         app:icon="@drawable/ic_health_red_24dp"
         app:inner_view="@layout/heart_rate"
         app:expandOnClick="true" />
+    <com.alespero.expandablecardview.ExpandableCardView
+        android:id="@+id/weight_card"
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:title="Weight"
+        app:icon="@drawable/ic_iso_black_24dp"
+        app:inner_view="@layout/pht_weight"
+        app:expandOnClick="true" />
 
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chart1"
-            android:layout_width="250dp"
-            android:layout_height="150dp" />
 
 
     </LinearLayout>

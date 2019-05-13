@@ -1,48 +1,28 @@
 package com.example.healthtracker;
 
-import android.graphics.Color;
-import android.graphics.DashPathEffect;
-import android.graphics.drawable.Drawable;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alespero.expandablecardview.ExpandableCardView;
 import com.example.healthtracker.core.PHT;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LimitLine;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IFillFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 
 public class PhtFragment extends Fragment {
-    private LineChart chart;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,15 +36,37 @@ public class PhtFragment extends Fragment {
         final EditText edit_text_sugar = (EditText)getView().findViewById(R.id.edit_text_blood_sugar);
         final EditText edit_text_heart = (EditText)getView().findViewById(R.id.edit_text_heart_rate);
         final EditText edit_text_tension = (EditText)getView().findViewById(R.id.edit_text_tension);
+        final EditText edit_text_weight = (EditText)getView().findViewById(R.id.edit_text_weight);
         final FloatingActionButton btn_blood = (FloatingActionButton) getView().findViewById(R.id.btn_blood_sugar);
         final FloatingActionButton btn_heart = (FloatingActionButton) getView().findViewById(R.id.btn_heart_rate);
         final FloatingActionButton btn_tension = (FloatingActionButton) getView().findViewById(R.id.btn_tension);
+        final FloatingActionButton btn_weight = (FloatingActionButton) getView().findViewById(R.id.btn_weight);
+        final ExpandableCardView cardTension = getView().findViewById(R.id.tension_card);
+        final ExpandableCardView cardHeart = getView().findViewById(R.id.heart_card);
+        final ExpandableCardView cardSugar = getView().findViewById(R.id.sugar_card);
+        final ExpandableCardView cardWeight = getView().findViewById(R.id.weight_card);
+        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+
+
         btn_tension.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 String content = edit_text_tension.getText().toString();
-                myPHT.addTension(Integer.valueOf(content));
+                if(myPHT.addTension(Integer.valueOf(content))){
+                    Toast.makeText(getActivity(), "Tension has added", Toast.LENGTH_LONG).show();
+                    edit_text_tension.setText("");
+                    cardTension.collapse();
+                    edit_text_tension.clearFocus();
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }else{
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Add Tension")
+                            .setMessage("Tension was not added, it should be between 40 and 400")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+
 
             }
         });
@@ -73,20 +75,63 @@ public class PhtFragment extends Fragment {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 String content = edit_text_heart.getText().toString();
-                myPHT.addHeartRate(Integer.valueOf(content));
+                if(myPHT.addHeartRate(Integer.valueOf(content))){
+                    edit_text_heart.setText("");
+                    edit_text_heart.clearFocus();
+                    cardHeart.collapse();
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }else{
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Add heart rate")
+                            .setMessage("Heart rate was not added, it should be between 40 and 300")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+
+
             }
         });
         btn_blood.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 String content = edit_text_sugar.getText().toString();
-                myPHT.addBloodSugar(Double.valueOf(content));
+                if(  myPHT.addBloodSugar(Double.valueOf(content))){
+                    myPHT.addBloodSugar(Double.valueOf(content));
+                    edit_text_sugar.setText("");
+                    edit_text_sugar.clearFocus();
+                    cardSugar.collapse();
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }else{
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Add blood sugar")
+                            .setMessage("Blood sugar was not added, it should be between 0 and 25")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+
+            }
+        });
+        btn_weight.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                String content = edit_text_weight.getText().toString();
+                if(myPHT.addWeight(Double.valueOf(content))){
+                    edit_text_weight.setText("");
+                    edit_text_weight.setText("");
+                    cardWeight.collapse();
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }else{
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Add weight")
+                            .setMessage("Weight was not added, it should be between 30 and 450")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+
             }
         });
 
-        chart = getView().findViewById(R.id.chart1);
-        myPHT.drawGrap(chart);
 
     }
 
