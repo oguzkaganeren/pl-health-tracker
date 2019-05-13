@@ -16,7 +16,7 @@
         android:textStyle="bold"/>
 
     <com.alespero.expandablecardview.ExpandableCardView
-        android:id="@+id/seteer"
+        android:id="@+id/EERnumberPick"
         android:expandOnClick="true"
         android:icon="@drawable/ic_format_line_spacing_black_24dp"
         android:inner_view="@layout/seteer"
