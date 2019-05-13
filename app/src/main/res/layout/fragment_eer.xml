@@ -14,9 +14,9 @@
         android:id="@+id/EerText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select One"
         android:layout_centerInParent="true"
-        android:textStyle="bold"/>
+        android:text="Select One"
+        android:textStyle="bold" />
 
     <com.alespero.expandablecardview.ExpandableCardView
         android:id="@+id/EerPick"
@@ -28,6 +28,15 @@
         app:icon="@drawable/ic_format_line_spacing_black_24dp"
         app:inner_view="@layout/seteer"
         app:expandOnClick="true" />
+
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:text="asd"
+        android:textAlignment="center"
+        android:textStyle="bold" />
 
 
 
