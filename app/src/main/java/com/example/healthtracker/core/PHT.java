@@ -29,19 +29,29 @@ public class PHT {
 
     }
     public boolean addTension(int value){
-
+        if(value<40||value>400){
+            return false;
+        }
         return addSomething(value,"tensions");
     }
 
     public boolean addHeartRate(int value){
-
+        if(value<40||value>300){
+            return false;
+        }
         return addSomething(value,"heart rates");
     }
     public boolean addWeight(double value){
-
+        if(value<30||value>450){
+            return false;
+        }
         return addSomething(value,"weights");
     }
     public boolean addBloodSugar(double value){
+
+        if(value<0||value>25){
+            return false;
+        }
         return addSomething(value,"blood sugars");
     }
 

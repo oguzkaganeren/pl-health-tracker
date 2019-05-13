@@ -1,6 +1,8 @@
 package com.example.healthtracker;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -57,6 +59,12 @@ public class PhtFragment extends Fragment {
                     cardTension.collapse();
                     edit_text_tension.clearFocus();
                     imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }else{
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Add Tension")
+                            .setMessage("Tension was not added, it should be between 40 and 400")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
                 }
 
 
@@ -67,24 +75,40 @@ public class PhtFragment extends Fragment {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 String content = edit_text_heart.getText().toString();
-                myPHT.addHeartRate(Integer.valueOf(content));
-                edit_text_heart.setText("");
-                edit_text_heart.clearFocus();
-                cardHeart.collapse();
-                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                if(myPHT.addHeartRate(Integer.valueOf(content))){
+                    edit_text_heart.setText("");
+                    edit_text_heart.clearFocus();
+                    cardHeart.collapse();
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }else{
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Add heart rate")
+                            .setMessage("Heart rate was not added, it should be between 40 and 300")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+
 
             }
         });
         btn_blood.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 String content = edit_text_sugar.getText().toString();
-                myPHT.addBloodSugar(Double.valueOf(content));
-                edit_text_sugar.setText("");
-                edit_text_sugar.clearFocus();
-                cardSugar.collapse();
-                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                if(  myPHT.addBloodSugar(Double.valueOf(content))){
+                    myPHT.addBloodSugar(Double.valueOf(content));
+                    edit_text_sugar.setText("");
+                    edit_text_sugar.clearFocus();
+                    cardSugar.collapse();
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }else{
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Add blood sugar")
+                            .setMessage("Blood sugar was not added, it should be between 0 and 25")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+
             }
         });
         btn_weight.setOnClickListener( new View.OnClickListener() {
@@ -92,11 +116,19 @@ public class PhtFragment extends Fragment {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 String content = edit_text_weight.getText().toString();
-                myPHT.addWeight(Double.valueOf(content));
-                edit_text_weight.setText("");
-                edit_text_weight.setText("");
-                cardWeight.collapse();
-                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                if(myPHT.addWeight(Double.valueOf(content))){
+                    edit_text_weight.setText("");
+                    edit_text_weight.setText("");
+                    cardWeight.collapse();
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }else{
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Add weight")
+                            .setMessage("Weight was not added, it should be between 30 and 450")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+
             }
         });
 
