@@ -9,6 +9,7 @@ public class Person {
     private double bloodSugar;//max 25 min 0
     private int heartRate;//min 50 max 200
     private BMI bmi;
+    private String eer;
 
     public Person(){
         bmi = new BMI(0,0);
@@ -18,6 +19,14 @@ public class Person {
         this.setWeight(weight);
         this.setHeight(height);
         bmi = new BMI(weight,height);
+        this.setEer(" ");
+    }
+    public String getEer(){
+        return eer;
+    }
+
+    public void setEer(String eer) {
+        this.eer = eer;
     }
 
     public double getBMI(){
