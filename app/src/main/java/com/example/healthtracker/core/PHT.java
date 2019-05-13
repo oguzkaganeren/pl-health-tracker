@@ -1,54 +1,48 @@
 package com.example.healthtracker.core;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
 
-import com.github.mikephil.charting.charts.LineChart;
+
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IFillFormatter;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class PHT {
     private Activity act;
-    private String tensions;
-    private String bloodSugars;
-    private String heartRates;
-    private LineChart chart;
     public PHT(Activity act){
         this.act=act;
-        this.bloodSugars=getBloodSugar();
-        this.tensions=getTension();
-        this.heartRates=getHeartRate();
 
     }
     public boolean addTension(int value){
+
         return addSomething(value,"tensions");
     }
 
     public boolean addHeartRate(int value){
 
-        return addSomething(value,"heart_rates");
+        return addSomething(value,"heart rates");
     }
+    public boolean addWeight(double value){
 
+        return addSomething(value,"weights");
+    }
     public boolean addBloodSugar(double value){
-        return addSomething(value,"blood_sugars");
+        return addSomething(value,"blood sugars");
     }
 
     public String getTension(){
@@ -57,12 +51,15 @@ public class PHT {
 
     public String getHeartRate(){
 
-        return getSomething("heart_rates");
+        return getSomething("heart rates");
     }
+    public String getWeight(){
 
+        return getSomething("weights");
+    }
     public String getBloodSugar(){
 
-        return getSomething("blood_sugars");
+        return getSomething("blood sugars");
     }
 
     private void clearData(String whatis){
@@ -80,50 +77,55 @@ public class PHT {
             editor.putString(whatis,value+"é"+currentTime);
         }
         editor.apply();
-        return false;
+        return true;
     }
     private String getSomething(String whatis){
         SharedPreferences thing = this.act.getSharedPreferences(whatis+"Pref", 0);
         String theThing = thing.getString(whatis,"");
         return theThing;
     }
-    public void drawGrap(LineChart chart){
-        this.chart=chart;
-        this.chart.setViewPortOffsets(50f, 0f, 0f, 0f);
-        this.chart.setExtraOffsets(25f,0,0,0);
-        this.chart.setBackgroundColor(Color.rgb(104, 241, 175));
-        this.chart.setPadding(50,0,0,0);
+    public void drawGrap(BarChart chart,String which,int color){
+        chart.setBackgroundColor(Color.parseColor("#FAFAFA"));
 
-        // no description text
-        this.chart.getDescription().setEnabled(false);
+        chart.setDrawBarShadow(false);
+        chart.setDrawValueAboveBar(true);
+        chart.setBorderColor(Color.DKGRAY);
+        chart.getDescription().setEnabled(false);
 
-        // enable touch gestures
-        this.chart.setTouchEnabled(true);
+        // if more than 60 entries are displayed in the chart, no values will be
+        // drawn
+        chart.setMaxVisibleValueCount(60);
 
-        this.chart.setDragDecelerationFrictionCoef(0.9f);
+        // scaling can now only be done on x- and y-axis separately
+        chart.setPinchZoom(false);
 
-        // enable scaling and dragging
-        this.chart.setDragEnabled(true);
-        this.chart.setScaleEnabled(true);
-        this.chart.setDrawGridBackground(false);
-        this.chart.setHighlightPerDragEnabled(true);
-        // add data
-
-
+        chart.setDrawGridBackground(false);
+        // chart.setDrawYLabels(false);
 
         XAxis xAxis = chart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
-        xAxis.setTextSize(10f);
-        xAxis.setTextColor(Color.WHITE);
-        xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(true);
-        xAxis.setTextColor(Color.rgb(250, 250, 250));
-        xAxis.setCenterAxisLabels(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+        xAxis.setGranularity(1f);
+        xAxis.setTextColor(Color.DKGRAY);
 
-        xAxis.setGranularity(1f); // one hour
+
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setLabelCount(5, false);
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        leftAxis.setZeroLineWidth(0);
+        leftAxis.setDrawGridLines(false);
+        leftAxis.setTextColor(Color.DKGRAY);
+        leftAxis.setDrawZeroLine(false);
+        chart.getAxisRight().setEnabled(false);
+        Legend l = chart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setTextColor(Color.DKGRAY);
+        l.setDrawInside(true);
         xAxis.setValueFormatter(new ValueFormatter() {
 
-            private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM HH:mm:ss", Locale.ENGLISH);
+            private final SimpleDateFormat mFormat = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
 
             @Override
             public String getFormattedValue(float value) {
@@ -133,62 +135,39 @@ public class PHT {
             }
         });
 
-        YAxis y = chart.getAxisLeft();
-        y.setLabelCount(10, false);
-        y.setTextColor(Color.WHITE);
-        y.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        y.setDrawGridLines(false);
-        y.setAxisLineColor(Color.WHITE);
-        YAxis rightAxis = chart.getAxisRight();
-        rightAxis.setEnabled(false);
-
         // add data
-        addData();
-
-
+        addData(which,chart,color);
 
         // don't forget to refresh the drawing
         chart.invalidate();
     }
-    private void addData() {
-        if(this.tensions.length()>0){
-            String[] tensions=this.tensions.split("~");
+    private void addData(String which,BarChart chart,int color) {
+        String savedData=getSomething(which);
+        if(savedData.length()>0){
+            ArrayList<BarEntry> values = new ArrayList<>();
+            String[] myData=savedData.split("~");
 
-            ArrayList<Entry> values = new ArrayList<>();
-            Log.d("test", "addData: "+tensions.length);
-            for (int i=0;i<tensions.length;i++)
+            Log.d("test", "addData: "+myData.length);
+            for (int i=0;i<myData.length;i++)
             {
-                values.add(new Entry(Long.valueOf(tensions[i].split("é")[1]),Float.valueOf(tensions[i].split("é")[0]) ) );
+                values.add(new BarEntry(Long.valueOf(myData[i].split("é")[1]),Float.valueOf(myData[i].split("é")[0]) ) );
 
             }
             // create a dataset and give it a type
-            LineDataSet set1 = new LineDataSet(values, "Tension");
-            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-            set1.setCubicIntensity(0.2f);
-            set1.setDrawFilled(true);
-            set1.setDrawCircles(false);
-            set1.setLineWidth(1.8f);
-            set1.setCircleRadius(4f);
-            set1.setCircleColor(Color.WHITE);
-            set1.setHighLightColor(Color.rgb(250, 250, 250));
-            set1.setColor(Color.WHITE);
-            set1.setFillColor(Color.WHITE);
-            set1.setFillAlpha(100);
-            set1.setDrawHorizontalHighlightIndicator(false);
-            set1.setFillFormatter(new IFillFormatter() {
-                @Override
-                public float getFillLinePosition(ILineDataSet dataSet, LineDataProvider dataProvider) {
-                    return chart.getAxisLeft().getAxisMinimum();
-                }
-            });
+            BarDataSet set1;
+                set1 = new BarDataSet(values, "Your "+which);
 
-            // create a data object with the data sets
-            LineData data = new LineData(set1);
-            data.setValueTextSize(9f);
-            data.setDrawValues(false);
+                set1.setDrawIcons(false);
 
-            // set data
-            this.chart.setData(data);
+            set1.setColor(color);
+            ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+            dataSets.add(set1);
+
+            BarData data = new BarData(dataSets);
+            data.setValueTextSize(10f);
+            data.setBarWidth(0.3f);
+            chart.getXAxis().setSpaceMax(5f);
+            chart.setData(data);
         }
 
     }
