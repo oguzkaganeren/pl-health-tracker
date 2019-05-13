@@ -36,11 +36,11 @@ public class EerFragment extends Fragment {
 
         final NumberPicker PA = view.findViewById(R.id.eerPick);
         final TextView eerText = view.findViewById(R.id.EerText);
+        final TextView resultText = view.findViewById(R.id.resultText);
         PA.setMinValue(0);
         PA.setMaxValue(values.length-1);
         PA.setDisplayedValues(values);
         PA.setWrapSelectorWheel(true);
-        eerText.setText("Current PA : " +newPeople.getEer());
 
 
         PA.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -48,8 +48,11 @@ public class EerFragment extends Fragment {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 eerText.setText("Physical Activity Coefficients : " + values[newVal]);
                 newPeople.setEer(values[newVal]);
+                resultText.setText(Double.toString(newPeople.getResult()));
             }
         });
+
+
     }
 
 
