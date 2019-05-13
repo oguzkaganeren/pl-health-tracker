@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,22 +9,27 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textEer"
+        android:id="@+id/PAText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Physical Activity Coefficients"
         android:layout_centerInParent="true"
         android:textStyle="bold"/>
 
-    <com.alespero.expandablecardview.ExpandableCardView
-        android:id="@+id/EERnumberPick"
-        android:expandOnClick="true"
-        android:icon="@drawable/ic_format_line_spacing_black_24dp"
-        android:inner_view="@layout/seteer"
-        android:title="Physical Activity Coefficients"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/EerText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp" />
+        android:text="Select One"
+        android:layout_centerInParent="true"
+        android:textStyle="bold"/>
+    <NumberPicker
+        android:id="@+id/EerPick"
+        android:layout_width="match_parent"
+        android:layout_height="141dp"
+        android:layout_marginTop="20dp"
+        android:theme="@style/numTheme"></NumberPicker>
+
+
 
 </LinearLayout>
