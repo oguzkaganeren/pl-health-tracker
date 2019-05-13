@@ -38,8 +38,8 @@ public class EerFragment extends Fragment {
         final TextView eerText = view.findViewById(R.id.EerText);
         PA.setMinValue(0);
         PA.setMaxValue(values.length-1);
-        PA.setValue(newPeople.getHeight());
         PA.setDisplayedValues(values);
+        PA.setWrapSelectorWheel(true);
         eerText.setText("Current PA : " +newPeople.getEer());
 
 
