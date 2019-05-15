@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.alespero.expandablecardview.ExpandableCardView;
 import com.example.healthtracker.core.Person;
+import com.github.anastr.speedviewlib.PointerSpeedometer;
 
 import java.lang.String;
 
@@ -33,7 +34,8 @@ public class BmiFragment extends Fragment {
         final NumberPicker weightFull = view.findViewById(R.id.weightFull);
         final NumberPicker weightDecimal = view.findViewById(R.id.weightDecimal);
         final ExpandableCardView setWeight = view.findViewById(R.id.setWeight);
-        final TextView tx = view.findViewById(R.id.currentHeight);
+        final TextView tx = view.findViewById(R.id.result);
+        tx.setText(""+newPeople.getBMI());
         setWeight.setTitle("Current Weight : " +newPeople.getWeight());
 
         weightDecimal.setValue((int)((int)newPeople.getWeight() - newPeople.getWeight()));
@@ -52,6 +54,8 @@ public class BmiFragment extends Fragment {
                 full = newVal;
                 currentWeight = Double.parseDouble(full + "." + half);
                 setWeight.setTitle("Current Weight : " + currentWeight);
+                newPeople.setWeight(currentWeight);
+                tx.setText(""+ newPeople.getBMI());
             }
         });
 
@@ -71,6 +75,7 @@ public class BmiFragment extends Fragment {
                 currentWeight = Double.parseDouble(full + "." + half);
                 setWeight.setTitle("Current Weight : " + currentWeight);
                 newPeople.setWeight(currentWeight);
+                tx.setText(""+ newPeople.getBMI());
             }
         });
 
@@ -92,8 +97,12 @@ public class BmiFragment extends Fragment {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 setHeight.setTitle("Current Height : " + newVal);
                 newPeople.setHeight(newVal);
+                tx.setText(""+ newPeople.getBMI());
             }
         });
+
+        final PointerSpeedometer speedometer = (PointerSpeedometer)view.findViewById(R.id.speedView);
+        speedometer.speedTo(50);
     }
     // TODO: Rename and change types and number of parameters
     public static BmiFragment newInstance(String param1, String param2) {

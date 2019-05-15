@@ -8,7 +8,7 @@
     android:textAlignment="center">
 
     <TextView
-        android:id="@+id/currentHeight"
+        android:id="@+id/result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
@@ -33,4 +33,13 @@
         app:icon="@drawable/ic_iso_black_24dp"
         app:inner_view="@layout/setweight"
         app:expandOnClick="true" />
+
+    <com.github.anastr.speedviewlib.PointerSpeedometer
+        android:id="@+id/speedView"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
 </LinearLayout>

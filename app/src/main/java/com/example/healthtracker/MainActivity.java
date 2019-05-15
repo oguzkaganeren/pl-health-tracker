@@ -1,5 +1,6 @@
 package com.example.healthtracker;
 
+import com.example.healthtracker.core.Person;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private int RC_SIGN_IN;//it related firebase
     final Fragment bmiFrag = new BmiFragment();
     final FragmentManager fm = getSupportFragmentManager();
+    public Person user = new Person();
     //buttom menu
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
