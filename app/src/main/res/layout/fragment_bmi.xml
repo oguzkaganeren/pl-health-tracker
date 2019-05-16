@@ -7,11 +7,6 @@
     android:orientation="vertical"
     android:textAlignment="center">
 
-    <TextView
-        android:id="@+id/result"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
     <com.alespero.expandablecardview.ExpandableCardView
         android:id="@+id/setHeight"
         android:layout_marginTop="10dp"
@@ -34,6 +29,17 @@
         app:inner_view="@layout/setweight"
         app:expandOnClick="true" />
 
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#00DFC8C8"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="30dp" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -43,7 +49,7 @@
             android:layout_width="222dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="10dp"
             app:sv_maxSpeed="50"
             app:sv_minSpeed="0"
             app:sv_speedTextColor="#005BCF6C"
