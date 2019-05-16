@@ -19,29 +19,30 @@ import java.lang.String;
 
 public class BmiFragment extends Fragment {
 
-    private Person newPeople;
+    private Person currentUser;
     //private ProgressBar bmiBar;
 
     public BmiFragment() {
         // Required empty public constructor
-        newPeople = new Person(45.1, 159);
+        currentUser = MainActivity.user;
     }
     int full = 0, half = 0; double currentWeight = 0.0;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        final PointerSpeedometer speedometer = (PointerSpeedometer)view.findViewById(R.id.speedView);
         final NumberPicker weightFull = view.findViewById(R.id.weightFull);
         final NumberPicker weightDecimal = view.findViewById(R.id.weightDecimal);
         final ExpandableCardView setWeight = view.findViewById(R.id.setWeight);
         final TextView tx = view.findViewById(R.id.result);
-        tx.setText(""+newPeople.getBMI());
-        setWeight.setTitle("Current Weight : " +newPeople.getWeight());
+        //tx.setText(""+currentUser.getBMI());
+        setWeight.setTitle("Current Weight : " +currentUser.getWeight());
 
-        weightDecimal.setValue((int)((int)newPeople.getWeight() - newPeople.getWeight()));
+        weightDecimal.setValue((int)((int)currentUser.getWeight() - currentUser.getWeight()));
         weightFull.setMinValue(30);
         weightFull.setMaxValue(200);
-        weightFull.setValue((int)newPeople.getWeight());
+        weightFull.setValue((int)currentUser.getWeight());
         weightFull.setFormatter(new NumberPicker.Formatter() {
             @Override
             public String format(int value) {
@@ -53,9 +54,10 @@ public class BmiFragment extends Fragment {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 full = newVal;
                 currentWeight = Double.parseDouble(full + "." + half);
-                setWeight.setTitle("Current Weight : " + currentWeight);
-                newPeople.setWeight(currentWeight);
-                tx.setText(""+ newPeople.getBMI());
+                setWeight.setTitle("Current Weight : " + currentWeight + " kg");
+                currentUser.setWeight(currentWeight);
+                tx.setText("BMI => "+(currentUser.getBMI()));
+                speedometer.speedTo((float)currentUser.getBMI());
             }
         });
 
@@ -74,8 +76,9 @@ public class BmiFragment extends Fragment {
                 half = newVal;
                 currentWeight = Double.parseDouble(full + "." + half);
                 setWeight.setTitle("Current Weight : " + currentWeight);
-                newPeople.setWeight(currentWeight);
-                tx.setText(""+ newPeople.getBMI());
+                currentUser.setWeight(currentWeight);
+                tx.setText("BMI => "+(currentUser.getBMI()));
+                speedometer.speedTo((float)currentUser.getBMI());
             }
         });
 
@@ -84,8 +87,8 @@ public class BmiFragment extends Fragment {
         final ExpandableCardView setHeight = view.findViewById(R.id.setHeight);
         heightFull.setMinValue(100);
         heightFull.setMaxValue(250);
-        heightFull.setValue(newPeople.getHeight());
-        setHeight.setTitle("Current Height : " +newPeople.getHeight());
+        heightFull.setValue((int)(currentUser.getHeight() * 100));
+        setHeight.setTitle("Current Height : " +currentUser.getHeight() + " cm");
         heightFull.setFormatter(new NumberPicker.Formatter() {
             @Override
             public String format(int value) {
@@ -95,15 +98,17 @@ public class BmiFragment extends Fragment {
         heightFull.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                setHeight.setTitle("Current Height : " + newVal);
-                newPeople.setHeight(newVal);
-                tx.setText(""+ newPeople.getBMI());
+                setHeight.setTitle("Current Height : " + newVal + " cm");
+                currentUser.setHeight(newVal);
+                tx.setText("BMI => "+(currentUser.getBMI()));
+                speedometer.speedTo((float)currentUser.getBMI());
             }
         });
 
-        final PointerSpeedometer speedometer = (PointerSpeedometer)view.findViewById(R.id.speedView);
-        speedometer.speedTo(50);
+        tx.setText("BMI => "+(currentUser.getBMI()));
+
     }
+
     // TODO: Rename and change types and number of parameters
     public static BmiFragment newInstance(String param1, String param2) {
         BmiFragment fragment = new BmiFragment();
