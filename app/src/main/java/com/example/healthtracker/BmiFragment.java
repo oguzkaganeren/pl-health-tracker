@@ -56,7 +56,8 @@ public class BmiFragment extends Fragment {
                 currentWeight = Double.parseDouble(full + "." + half);
                 setWeight.setTitle("Current Weight : " + currentWeight + " kg");
                 currentUser.setWeight(currentWeight);
-                tx.setText("BMI => "+(currentUser.getBMI()));
+                tx.setText("STATUS : "+(currentUser.BMICategory()));
+                tx.setBackgroundColor(currentUser.BMIColor());
                 speedometer.speedTo((float)currentUser.getBMI());
             }
         });
@@ -78,6 +79,9 @@ public class BmiFragment extends Fragment {
                 setWeight.setTitle("Current Weight : " + currentWeight);
                 currentUser.setWeight(currentWeight);
                 tx.setText("BMI => "+(currentUser.getBMI()));
+                speedometer.speedTo((float)currentUser.getBMI());
+                tx.setText("STATUS : "+(currentUser.BMICategory()));
+                tx.setBackgroundColor(currentUser.BMIColor());
                 speedometer.speedTo((float)currentUser.getBMI());
             }
         });
@@ -102,10 +106,15 @@ public class BmiFragment extends Fragment {
                 currentUser.setHeight(newVal);
                 tx.setText("BMI => "+(currentUser.getBMI()));
                 speedometer.speedTo((float)currentUser.getBMI());
+                tx.setText("STATUS : "+(currentUser.BMICategory()));
+                tx.setBackgroundColor(currentUser.BMIColor());
+                speedometer.speedTo((float)currentUser.getBMI());
             }
         });
 
-        tx.setText("BMI => "+(currentUser.getBMI()));
+        tx.setText("STATUS : "+(currentUser.BMICategory()));
+        tx.setBackgroundColor(currentUser.BMIColor());
+        speedometer.speedTo((float)currentUser.getBMI());
 
     }
 
