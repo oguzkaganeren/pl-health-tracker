@@ -1,30 +1,31 @@
 package com.example.healthtracker.core;
 
 public class BMI {
-    private double weight;
-    private double height;
-    private enum category{Underweight ,Normalweight,Overweight,Obesity, Error};
     private double result;
     private String color;
-    public BMI(double weight, double height) {
-        this.weight = weight;
-        this.height = height;
+    private Person currentPerson;
+
+    public BMI(Person currentPerson) {
         this.result = 0.0;
         this.color = "#DDDDDD";
+        this.currentPerson = currentPerson;
     }
 
     public double calculate(){
-        result = weight / (Math.pow(height, 2));
+        result = currentPerson.getWeight()/ (Math.pow(currentPerson.getHeight(), 2));
         return result;
     }
 
-    public category getBMICategory(){
-        if(result < 18.5) { color = "#66FFFF"; return category.Underweight; }
-        else if(result >=18.5 && result <=24.9){ color = "#3366FF"; return category.Normalweight;}
-        else if(result >=25 && result <= 29.9){ color = "#FF6633";return  category.Overweight;}
-        else if(result >= 30) { color = "#FF0000"; return category.Obesity; }
+    public String getBMICategory(){
+        if(result < 18.5) { setColor("#66FFFF"); return "Underweight"; }
+        else if(result >=18.5 && result <=24.9){ setColor("#3366FF"); return "Normal Weight"; }
+        else if(result >=25 && result <= 29.9){ setColor("#FF6633"); return  "Overweight"; }
+        else if(result >= 30) { setColor("#FF0000"); return "Obesity"; }
 
-        return category.Error;
+        return "Error";
     }
 
+    private void setColor(String color){ this.color = color;}
+
+    public String getColor() { return this.color; }
 }
