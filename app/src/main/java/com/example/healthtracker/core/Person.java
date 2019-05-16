@@ -35,6 +35,7 @@ public class Person {
 
     public String BMICategory() { return bmi.getBMICategory(); }
 
+    public int BMIColor() { return  bmi.getColor(); }
     public double getWeight() {
         return weight;
     }
