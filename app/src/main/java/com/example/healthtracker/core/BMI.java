@@ -1,13 +1,15 @@
 package com.example.healthtracker.core;
 
+import android.graphics.Color;
+
 public class BMI {
     private double result;
-    private String color;
+    private int color;
     private Person currentPerson;
 
     public BMI(Person currentPerson) {
         this.result = 0.0;
-        this.color = "#DDDDDD";
+        setColor(Color.RED);
         this.currentPerson = currentPerson;
     }
 
@@ -17,15 +19,15 @@ public class BMI {
     }
 
     public String getBMICategory(){
-        if(result < 18.5) { setColor("#66FFFF"); return "Underweight"; }
-        else if(result >=18.5 && result <=24.9){ setColor("#3366FF"); return "Normal Weight"; }
-        else if(result >=25 && result <= 29.9){ setColor("#FF6633"); return  "Overweight"; }
-        else if(result >= 30) { setColor("#FF0000"); return "Obesity"; }
+        if(result < 18.5) { setColor(Color.GREEN); return "Underweight"; }
+        else if(result >=18.5 && result <=24.9){ setColor(Color.CYAN); return "Normal Weight"; }
+        else if(result >=25 && result <= 29.9){ setColor(Color.BLUE); return  "Overweight"; }
+        else if(result >= 30) { setColor(Color.RED); return "Obesity"; }
 
         return "Error";
     }
 
-    private void setColor(String color){ this.color = color;}
+    private void setColor(int color){ this.color = color;}
 
-    public String getColor() { return this.color; }
+    public int getColor() { return this.color; }
 }
