@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private int RC_SIGN_IN;//it related firebase
     final Fragment bmiFrag = new BmiFragment();
     final FragmentManager fm = getSupportFragmentManager();
-    public Person user = new Person();
+    public static Person user = new Person(45.2, 155);
     //buttom menu
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
