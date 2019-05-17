@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private int RC_SIGN_IN;//it related firebase
     final Fragment bmiFrag = new BmiFragment();
     final FragmentManager fm = getSupportFragmentManager();
-    public static Person user = new Person(45.2, 155);
+    public static Person user = new Person();
+
     //buttom menu
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loadFragment(new HomeFragment());
-
+        user.setWeight(80); user.setHeight(170); user.setAge(24);
         /*
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
