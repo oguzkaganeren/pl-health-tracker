@@ -2,7 +2,7 @@ package com.example.healthtracker.core;
 
 public class Person {
     private double weight;
-    private double height;
+    private int height;
     private int age;
     private boolean gender;
     private int tension;//max 200 min 40
@@ -12,17 +12,9 @@ public class Person {
     private String eer;
 
     public Person(){
-        bmi = new BMI(this);
+        bmi = new BMI(this); this.setEer(" ");
     }
 
-    public Person(double weight, double height) {
-        this.setWeight(weight);
-        this.setHeight(height);
-        bmi = new BMI(this);
-        this.setEer(" ");
-        this.setGender(true);
-        this.setAge(22);
-    }
     public String getEer(){
         return eer;
     }
@@ -45,10 +37,10 @@ public class Person {
     }
 
     public double getHeight() {
-        return height;
+        return height * 0.01;
     }
 
-    public void setHeight(double height) { this.height = height * 0.01; }
+    public void setHeight(int height) { this.height = height; }
 
     public int getTension() {
         return tension;
