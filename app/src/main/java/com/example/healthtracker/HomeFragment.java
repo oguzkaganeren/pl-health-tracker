@@ -36,9 +36,9 @@ public class HomeFragment extends Fragment {
         bloodChart = getView().findViewById(R.id.bloodChart);
         heartChart = getView().findViewById(R.id.heartChart);
         weightChart = getView().findViewById(R.id.weightChart);
-        myPHT.drawGrap(tensionChart,"tensions", Color.CYAN);
-        myPHT.drawGrap(bloodChart,"blood sugars",Color.RED);
-        myPHT.drawGrap(heartChart,"heart rates",Color.MAGENTA);
-        myPHT.drawGrap(weightChart,"weights",Color.GREEN);
+        myPHT.drawGrap(tensionChart,"tensions", Color.rgb(255, 193, 7));
+        myPHT.drawGrap(bloodChart,"blood sugars",Color.rgb(255, 87, 34));
+        myPHT.drawGrap(heartChart,"heart rates",Color.rgb(139, 195, 74));
+        myPHT.drawGrap(weightChart,"weights",Color.rgb(255, 235, 59));
     }
 }

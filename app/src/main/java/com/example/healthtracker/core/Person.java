@@ -1,18 +1,26 @@
 package com.example.healthtracker.core;
 
+import android.app.Activity;
+
 public class Person {
     private double weight;
     private int height;
     private int age;
     private boolean gender;
-    private int tension;//max 200 min 40
-    private double bloodSugar;//max 25 min 0
-    private int heartRate;//min 50 max 200
+    private int tension;
+    private double bloodSugar;
+    private int heartRate;
     private BMI bmi;
     private String eer;
+    public PHT pht;
 
     public Person(){
         bmi = new BMI(this); this.setEer(" ");
+        pht=new PHT();
+    }
+    public Person(Activity act){
+        bmi = new BMI(this); this.setEer(" ");
+        pht=new PHT(act);
     }
 
     public String getEer(){

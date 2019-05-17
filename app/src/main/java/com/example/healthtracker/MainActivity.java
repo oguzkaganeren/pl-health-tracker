@@ -1,7 +1,10 @@
 package com.example.healthtracker;
 
 import com.example.healthtracker.core.Person;
+
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loadFragment(new HomeFragment());
+        user.pht.setAct(this);
         user.setWeight(80); user.setHeight(170); user.setAge(24);
         /*
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -90,35 +94,41 @@ public class MainActivity extends AppCompatActivity {
     //header menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user!=null) {
-            getMenuInflater().inflate(R.menu.options_menu, menu);
-        }
+        getMenuInflater().inflate(R.menu.options_menu, menu);
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.settings:
-                break;
-            case R.id.logout:
-                final ProgressDialog dial=new ProgressDialog(MainActivity.this);
-                dial.setMax(100);
-                dial.setTitle("Logout...");
-                dial.show();
-                AuthUI.getInstance()
-                        .signOut(this)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            public void onComplete(@NonNull Task<Void> task) {
-                                // ...
-                                dial.hide();
-                                refresh();
-                            }
-                        });
+            case R.id.clearData:
+                new AlertDialog.Builder(this)
+                        .setTitle("Delete all data")
+                        .setMessage("Are you sure?")
+                        .setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
                 break;
         }
         return true;
     }
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked
+                    user.pht.clearAll();
+                    refresh();
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    break;
+            }
+        }
+    };
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

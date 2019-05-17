@@ -27,6 +27,7 @@ public class EerFragment extends Fragment {
     public EerFragment() {
         // Required empty public constructor
         newPeople = MainActivity.user;
+
         newEER = new EER(newPeople);
     }
     @Override

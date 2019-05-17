@@ -13,10 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alespero.expandablecardview.ExpandableCardView;
 import com.example.healthtracker.core.PHT;
+import com.example.healthtracker.core.Person;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -32,7 +34,7 @@ public class PhtFragment extends Fragment {
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        final PHT myPHT=new PHT(this.getActivity());
+        final Person person=new Person(this.getActivity());
         final EditText edit_text_sugar = (EditText)getView().findViewById(R.id.edit_text_blood_sugar);
         final EditText edit_text_heart = (EditText)getView().findViewById(R.id.edit_text_heart_rate);
         final EditText edit_text_tension = (EditText)getView().findViewById(R.id.edit_text_tension);
@@ -46,14 +48,15 @@ public class PhtFragment extends Fragment {
         final ExpandableCardView cardSugar = getView().findViewById(R.id.sugar_card);
         final ExpandableCardView cardWeight = getView().findViewById(R.id.weight_card);
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-
+        final TextView warning=(TextView)getView().findViewById(R.id.txt_pht);
 
         btn_tension.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 String content = edit_text_tension.getText().toString();
-                if(myPHT.addTension(Integer.valueOf(content))){
+
+                if(person.pht.addTension(Integer.valueOf(content),warning)){
                     Toast.makeText(getActivity(), "Tension has added", Toast.LENGTH_LONG).show();
                     edit_text_tension.setText("");
                     cardTension.collapse();
@@ -75,7 +78,7 @@ public class PhtFragment extends Fragment {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 String content = edit_text_heart.getText().toString();
-                if(myPHT.addHeartRate(Integer.valueOf(content))){
+                if(person.pht.addHeartRate(Integer.valueOf(content),warning)){
                     edit_text_heart.setText("");
                     edit_text_heart.clearFocus();
                     cardHeart.collapse();
@@ -83,7 +86,7 @@ public class PhtFragment extends Fragment {
                 }else{
                     new AlertDialog.Builder(getActivity())
                             .setTitle("Add heart rate")
-                            .setMessage("Heart rate was not added, it should be between 40 and 300")
+                            .setMessage("Heart rate was not added, it should be between 50 and 300")
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
                 }
@@ -95,8 +98,7 @@ public class PhtFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String content = edit_text_sugar.getText().toString();
-                if(  myPHT.addBloodSugar(Double.valueOf(content))){
-                    myPHT.addBloodSugar(Double.valueOf(content));
+                if(person.pht.addBloodSugar(Double.valueOf(content),warning)){
                     edit_text_sugar.setText("");
                     edit_text_sugar.clearFocus();
                     cardSugar.collapse();
@@ -116,7 +118,7 @@ public class PhtFragment extends Fragment {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 String content = edit_text_weight.getText().toString();
-                if(myPHT.addWeight(Double.valueOf(content))){
+                if(person.pht.addWeight(Double.valueOf(content),warning)){
                     edit_text_weight.setText("");
                     edit_text_weight.setText("");
                     cardWeight.collapse();
