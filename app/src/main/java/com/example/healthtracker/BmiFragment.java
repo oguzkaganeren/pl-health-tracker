@@ -35,10 +35,11 @@ public class BmiFragment extends Fragment {
         final NumberPicker weightFull = view.findViewById(R.id.weightFull);
         final NumberPicker weightDecimal = view.findViewById(R.id.weightDecimal);
         final ExpandableCardView setWeight = view.findViewById(R.id.setWeight);
-        final TextView tx = view.findViewById(R.id.result);
-        //tx.setText(""+currentUser.getBMI());
-        setWeight.setTitle("Current Weight : " +currentUser.getWeight());
+        final TextView txt_status = view.findViewById(R.id.txt_status);
+        final TextView txt_bmi = view.findViewById(R.id.txt_bmi);
 
+        setWeight.setTitle("Current Weight : " +currentUser.getWeight());
+        txt_bmi.setText("BMI : " + currentUser.getBMI());
         weightDecimal.setValue((int)((int)currentUser.getWeight() - currentUser.getWeight()));
         weightFull.setMinValue(30);
         weightFull.setMaxValue(200);
@@ -56,9 +57,10 @@ public class BmiFragment extends Fragment {
                 currentWeight = Double.parseDouble(full + "." + half);
                 setWeight.setTitle("Current Weight : " + currentWeight + " kg");
                 currentUser.setWeight(currentWeight);
-                tx.setText("STATUS : "+(currentUser.BMICategory()));
-                tx.setBackgroundColor(currentUser.BMIColor());
+                txt_status.setText("STATUS : "+(currentUser.BMICategory()));
+                txt_status.setBackgroundColor(currentUser.BMIColor());
                 speedometer.speedTo((float)currentUser.getBMI());
+                txt_bmi.setText("BMI : " + currentUser.getBMI());
             }
         });
 
@@ -78,11 +80,12 @@ public class BmiFragment extends Fragment {
                 currentWeight = Double.parseDouble(full + "." + half);
                 setWeight.setTitle("Current Weight : " + currentWeight);
                 currentUser.setWeight(currentWeight);
-                tx.setText("BMI => "+(currentUser.getBMI()));
+                txt_status.setText("BMI => "+(currentUser.getBMI()));
                 speedometer.speedTo((float)currentUser.getBMI());
-                tx.setText("STATUS : "+(currentUser.BMICategory()));
-                tx.setBackgroundColor(currentUser.BMIColor());
+                txt_status.setText("STATUS : "+(currentUser.BMICategory()));
+                txt_status.setBackgroundColor(currentUser.BMIColor());
                 speedometer.speedTo((float)currentUser.getBMI());
+                txt_bmi.setText("BMI : " + currentUser.getBMI());
             }
         });
 
@@ -104,16 +107,17 @@ public class BmiFragment extends Fragment {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 setHeight.setTitle("Current Height : " + newVal + " cm");
                 currentUser.setHeight(newVal);
-                tx.setText("BMI => "+(currentUser.getBMI()));
+                txt_status.setText("BMI => "+(currentUser.getBMI()));
                 speedometer.speedTo((float)currentUser.getBMI());
-                tx.setText("STATUS : "+(currentUser.BMICategory()));
-                tx.setBackgroundColor(currentUser.BMIColor());
+                txt_status.setText("STATUS : "+(currentUser.BMICategory()));
+                txt_status.setBackgroundColor(currentUser.BMIColor());
                 speedometer.speedTo((float)currentUser.getBMI());
+                txt_bmi.setText("BMI : " + currentUser.getBMI());
             }
         });
 
-        tx.setText("STATUS : "+(currentUser.BMICategory()));
-        tx.setBackgroundColor(currentUser.BMIColor());
+        txt_status.setText("STATUS : "+(currentUser.BMICategory()));
+        txt_status.setBackgroundColor(currentUser.BMIColor());
         speedometer.speedTo((float)currentUser.getBMI());
 
     }
