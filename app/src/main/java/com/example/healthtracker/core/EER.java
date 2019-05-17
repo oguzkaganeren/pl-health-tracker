@@ -53,8 +53,8 @@ public class EER {
     {
         if(newPerson.isGender())
         {
-            return 662 - (9.53 * newPerson.getAge()) + findPA()* (15.91 * newPerson.getWeight() + 539.6 * newPerson.getHeight()/100);
+            return 662 - (9.53 * newPerson.getAge()) + findPA()* (15.91 * newPerson.getWeight() + 539.6 * newPerson.getHeight());
         }
-        return 354 - (6.91 * newPerson.getAge()) + findPA() * ( 9.36 * newPerson.getWeight() + 726 * newPerson.getHeight()/100 );
+        return 354 - (6.91 * newPerson.getAge()) + findPA() * ( 9.36 * newPerson.getWeight() + 726 * newPerson.getHeight() );
     }
 }

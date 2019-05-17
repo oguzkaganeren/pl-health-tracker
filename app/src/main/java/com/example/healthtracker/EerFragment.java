@@ -11,13 +11,11 @@ import android.view.ViewGroup;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import com.alespero.expandablecardview.ExpandableCardView;
 import com.example.healthtracker.core.EER;
 import com.example.healthtracker.core.Person;
 
 import java.lang.String;
 import com.alespero.expandablecardview.ExpandableCardView;
-import com.example.healthtracker.core.Person;
 
 import java.lang.String;
 
@@ -28,7 +26,7 @@ public class EerFragment extends Fragment {
     private EER newEER;
     public EerFragment() {
         // Required empty public constructor
-        newPeople = new Person(45.1, 159);
+        newPeople = MainActivity.user;
         newEER = new EER(newPeople);
     }
     @Override
