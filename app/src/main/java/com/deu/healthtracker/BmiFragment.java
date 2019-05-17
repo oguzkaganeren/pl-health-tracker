@@ -1,4 +1,4 @@
-package com.example.healthtracker;
+package com.deu.healthtracker;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -12,7 +12,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.alespero.expandablecardview.ExpandableCardView;
-import com.example.healthtracker.core.Person;
+import com.deu.healthtracker.core.Person;
 import com.github.anastr.speedviewlib.PointerSpeedometer;
 
 import java.lang.String;

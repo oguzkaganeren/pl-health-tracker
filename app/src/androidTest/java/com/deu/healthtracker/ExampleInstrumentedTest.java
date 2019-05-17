@@ -1,4 +1,4 @@
-package com.example.healthtracker;
+package com.deu.healthtracker;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;

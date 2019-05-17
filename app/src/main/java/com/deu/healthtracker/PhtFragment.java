@@ -1,8 +1,7 @@
-package com.example.healthtracker;
+package com.deu.healthtracker;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -17,8 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alespero.expandablecardview.ExpandableCardView;
-import com.example.healthtracker.core.PHT;
-import com.example.healthtracker.core.Person;
+import com.deu.healthtracker.core.Person;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 

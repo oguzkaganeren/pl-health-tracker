@@ -1,4 +1,4 @@
-package com.example.healthtracker.core;
+package com.deu.healthtracker.core;
 
 public class EER {
     private Person newPerson;

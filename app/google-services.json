@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:534515845978:android:5cc92b432dd1372c",
         "android_client_info": {
-          "package_name": "com.example.healthtracker"
+          "package_name": "com.deu.healthtracker"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "534515845978-8robmn6c3dlniabbe83sasre1mhi290f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.healthtracker",
+            "package_name": "com.deu.healthtracker",
             "certificate_hash": "f6bc310174b07e3d0ec4da50da380540b0ed1f31"
           }
         },

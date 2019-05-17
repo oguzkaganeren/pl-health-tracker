@@ -1,4 +1,4 @@
-package com.example.healthtracker;
+package com.deu.healthtracker;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -11,11 +11,8 @@ import android.view.ViewGroup;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import com.example.healthtracker.core.EER;
-import com.example.healthtracker.core.Person;
-
-import java.lang.String;
-import com.alespero.expandablecardview.ExpandableCardView;
+import com.deu.healthtracker.core.EER;
+import com.deu.healthtracker.core.Person;
 
 import java.lang.String;
 

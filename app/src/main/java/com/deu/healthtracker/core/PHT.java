@@ -1,4 +1,4 @@
-package com.example.healthtracker.core;
+package com.deu.healthtracker.core;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

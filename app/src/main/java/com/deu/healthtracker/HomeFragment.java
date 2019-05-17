@@ -1,4 +1,4 @@
-package com.example.healthtracker;
+package com.deu.healthtracker;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.healthtracker.core.PHT;
+import com.deu.healthtracker.core.PHT;
 import com.github.mikephil.charting.charts.BarChart;
 
 
