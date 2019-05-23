@@ -10,7 +10,7 @@ public class BMI {
     public BMI(Person currentPerson) {
         this.result = 0.0;
         setColor(Color.RED);
-        this.currentPerson = currentPerson;
+        setPerson(currentPerson);
     }
 
     public double calculate(){
@@ -27,6 +27,7 @@ public class BMI {
         return "Error";
     }
 
+    private void setPerson(Person p) { this.currentPerson = p; }
     private void setColor(int color){ this.color = color;}
 
     public int getColor() { return this.color; }
