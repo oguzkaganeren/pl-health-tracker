@@ -2,7 +2,9 @@ package com.deu.healthtracker;
 
 import com.deu.healthtracker.core.Person;
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,13 +17,15 @@ import androidx.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.firebase.ui.auth.IdpResponse;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.nabinbhandari.android.permissions.PermissionHandler;
+import com.nabinbhandari.android.permissions.Permissions;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private int RC_SIGN_IN;//it related firebase
+    private boolean permissionGranted=false;
     final Fragment bmiFrag = new BmiFragment();
     final FragmentManager fm = getSupportFragmentManager();
     public static Person user = new Person();
@@ -58,30 +62,52 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loadFragment(new HomeFragment());
-        user.pht.setAct(this);
-        user.setWeight(80); user.setHeight(170); user.setAge(24);
-        /*
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        Permissions.check(this/*context*/, permissions, null/*rationale*/, null/*options*/, new PermissionHandler() {
+            @Override
+            public void onGranted() {
+                permissionGranted=true;
 
-        if(user==null){
-            // Choose authentication providers
-            List<AuthUI.IdpConfig> providers = Arrays.asList(
-                    new AuthUI.IdpConfig.EmailBuilder().build());
+            }
+            @Override
+            public void onDenied(Context context, ArrayList<String> deniedPermissions) {
+                // permission denied, block the feature.
+                new AlertDialog.Builder(getApplicationContext())
+                        .setTitle("Need Permission")
+                        .setMessage("The Application need permissions for running. Give it?")
+                        .setPositiveButton("Yes", dialogPermListener)
+                        .setNegativeButton("No", dialogPermListener)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+        if(permissionGranted){
+            loadFragment(new HomeFragment());
+            user.pht.setAct(this);
+            user.setWeight(80); user.setHeight(170); user.setAge(24);
 
-            // Create and launch sign-in intent
-            startActivityForResult(
-                    AuthUI.getInstance()
-                            .createSignInIntentBuilder()
-                            .setAvailableProviders(providers)
-                            .build(),
-                    RC_SIGN_IN);
+            BottomNavigationView navView = findViewById(R.id.nav_view);
+            navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         }
-        */
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
 
     }
+    DialogInterface.OnClickListener dialogPermListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked
+                    refresh();
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    System.exit(0);
+                    break;
+            }
+        }
+    };
     //header menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,26 +146,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN) {
-            IdpResponse response = IdpResponse.fromResultIntent(data);
-
-            if (resultCode == RESULT_OK) {
-                // Successfully signed in
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                refresh();
-                // ...
-            } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
-            }
-        }
-    }
     public void refresh() {
         Intent intent = getIntent();
         overridePendingTransition(0, 0);
